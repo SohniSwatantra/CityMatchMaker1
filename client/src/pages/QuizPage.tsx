@@ -26,7 +26,9 @@ export default function QuizPage() {
     } else {
       // Save answers and navigate to results
       setAnswers(selectedAnswers);
-      setLocation("/results");
+      console.log("Quiz completed, redirecting to results");
+      // Force redirection to results page
+      window.location.href = "/results";
     }
   };
 
