@@ -6,7 +6,14 @@ interface QuizContextProps {
   resetQuiz: () => void;
 }
 
-const QuizContext = createContext<QuizContextProps | undefined>(undefined);
+// Create a default value for the context to avoid undefined
+const defaultContextValue: QuizContextProps = {
+  answers: {},
+  setAnswers: () => {},
+  resetQuiz: () => {}
+};
+
+const QuizContext = createContext<QuizContextProps>(defaultContextValue);
 
 export const QuizProvider = ({ children }: { children: ReactNode }) => {
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -24,8 +31,5 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
 
 export const useQuiz = () => {
   const context = useContext(QuizContext);
-  if (context === undefined) {
-    throw new Error("useQuiz must be used within a QuizProvider");
-  }
   return context;
 };
