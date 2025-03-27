@@ -9,6 +9,7 @@ import ResultsPage from "@/pages/ResultsPage";
 import RoommatesPage from "@/pages/RoommatesPage";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { QuizProvider } from "@/context/QuizContext";
 
 function Router() {
   return (
@@ -25,14 +26,16 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Router />
-        </main>
-        <Footer />
-      </div>
-      <Toaster />
+      <QuizProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <Router />
+          </main>
+          <Footer />
+        </div>
+        <Toaster />
+      </QuizProvider>
     </QueryClientProvider>
   );
 }

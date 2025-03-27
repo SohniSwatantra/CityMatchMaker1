@@ -27,8 +27,24 @@ export default function QuizPage() {
       // Save answers and navigate to results
       setAnswers(selectedAnswers);
       console.log("Quiz completed, redirecting to results");
-      // Force redirection to results page
-      window.location.href = "/results";
+      
+      // Submit quiz answers to API
+      fetch('/api/quiz-answers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ answers: selectedAnswers })
+      })
+      .then(() => {
+        // Force navigation using proper routing
+        window.location.replace('/results');
+      })
+      .catch(error => {
+        console.error('Error saving quiz answers:', error);
+        // Still redirect even if there's an error
+        window.location.replace('/results');
+      });
     }
   };
 

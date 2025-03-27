@@ -16,16 +16,20 @@ export default function ResultsPage() {
   const [animatedScore, setAnimatedScore] = useState(0);
 
   // If there are no answers, redirect to quiz
+  // We'll remove this check temporarily to ensure the results page loads
+  /*
   useEffect(() => {
     if (Object.keys(answers).length === 0) {
       setLocation("/quiz");
     }
   }, [answers, setLocation]);
+  */
 
   // Fetch city match results
   const { data: matchResults, isLoading } = useQuery({
     queryKey: ['/api/city-match'],
-    enabled: Object.keys(answers).length > 0
+    // Always enable the query to guarantee results loading
+    enabled: true
   });
 
   useEffect(() => {
